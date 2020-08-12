@@ -25,9 +25,11 @@ function join(call, callback) {
  
 // Receive message from client
 function send(call, callback) {
+  //console.log(call);
   console.log(call.request);
-  return callback(null,{text:call.request.text})
-  //notifyChat(call.request);
+  // call.write("dddd");
+  // return callback(null,{text:call.request.text})
+  notifyChat(call.request);
 }
  
 // Send message to all connected clients

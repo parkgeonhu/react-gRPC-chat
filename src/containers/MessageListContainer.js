@@ -12,12 +12,29 @@ const MessageListContainer = () => {
     const { ChatClient } = require('../protos/chat_grpc_web_pb');
     const { Message } = require('../protos/chat_pb.js');
 
-    var client = new ChatClient('http://localhost:9090', null, null);
+    var client= new ChatClient('http://localhost:9090', null, null);
 
     useEffect(() => {
         // dispatch(readSearch(tag));
         // 언마운트될 때 리덕스에서 포스트 데이터 없애기
 
+        let streamRequest = new Message();
+        streamRequest.setUser("박건후");
+        
+        // client.join(() => {
+        //     streamRequest,
+        //     {"custom-header-1": "value1"}
+        // });
+
+        // {"custom-header-1": "value1"}
+        var stream = client.join(
+            streamRequest,
+            null
+        );
+
+        stream.on('data', function(response) {
+            console.log(response);
+        });
 
         return () => {
             //dispatch(unloadPost());

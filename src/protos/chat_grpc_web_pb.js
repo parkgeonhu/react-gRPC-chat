@@ -76,6 +76,81 @@ proto.example.ChatPromiseClient =
  *   !proto.example.Message,
  *   !proto.example.Message>}
  */
+const methodDescriptor_Chat_join = new grpc.web.MethodDescriptor(
+  '/example.Chat/join',
+  grpc.web.MethodType.SERVER_STREAMING,
+  proto.example.Message,
+  proto.example.Message,
+  /**
+   * @param {!proto.example.Message} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.example.Message.deserializeBinary
+);
+
+
+/**
+ * @const
+ * @type {!grpc.web.AbstractClientBase.MethodInfo<
+ *   !proto.example.Message,
+ *   !proto.example.Message>}
+ */
+const methodInfo_Chat_join = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.example.Message,
+  /**
+   * @param {!proto.example.Message} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.example.Message.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.example.Message} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.example.Message>}
+ *     The XHR Node Readable Stream
+ */
+proto.example.ChatClient.prototype.join =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/example.Chat/join',
+      request,
+      metadata || {},
+      methodDescriptor_Chat_join);
+};
+
+
+/**
+ * @param {!proto.example.Message} request The request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.example.Message>}
+ *     The XHR Node Readable Stream
+ */
+proto.example.ChatPromiseClient.prototype.join =
+    function(request, metadata) {
+  return this.client_.serverStreaming(this.hostname_ +
+      '/example.Chat/join',
+      request,
+      metadata || {},
+      methodDescriptor_Chat_join);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.example.Message,
+ *   !proto.example.Message>}
+ */
 const methodDescriptor_Chat_send = new grpc.web.MethodDescriptor(
   '/example.Chat/send',
   grpc.web.MethodType.UNARY,
