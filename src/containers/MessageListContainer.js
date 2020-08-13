@@ -34,13 +34,15 @@ const MessageListContainer = () => {
 
         stream.on('data', function(response) {
             console.log(response);
+            setChat(c=>[...c, { name : response.array[0], msg : response.array[1] }]);
+            // setChat([...chat, { name : response.array[0], msg : response.array[1] }]);
         });
 
         return () => {
             //dispatch(unloadPost());
         };
-    }, []);
-
+        
+    },[]);
     const onNameChange = e => {
         setName(e.target.value);
     }
@@ -53,11 +55,12 @@ const MessageListContainer = () => {
         setMsg("");
         const request = new Message();
         request.setText(msg);
+        request.setUser(name);
         client.send(request, {}, (err, response) => {
             if (response == null) {
               console.log(err)
             }else {
-              console.log(response.getText())
+              console.log(response)
             }
         });
         // setChat([...chat, { name, msg }]);
