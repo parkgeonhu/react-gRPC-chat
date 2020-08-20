@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import MessageList from '../components/chat/MessageList';
-// import * as grpc from 'grpc';
-// import * as protoLoader from '@grpc/proto-loader'
 
 const MessageListContainer = () => {
 
@@ -15,18 +13,9 @@ const MessageListContainer = () => {
     var client= new ChatClient('http://localhost:9090', null, null);
 
     useEffect(() => {
-        // dispatch(readSearch(tag));
-        // 언마운트될 때 리덕스에서 포스트 데이터 없애기
-
         let streamRequest = new Message();
         streamRequest.setUser("박건후");
         
-        // client.join(() => {
-        //     streamRequest,
-        //     {"custom-header-1": "value1"}
-        // });
-
-        // {"custom-header-1": "value1"}
         var stream = client.join(
             streamRequest,
             null
@@ -35,11 +24,9 @@ const MessageListContainer = () => {
         stream.on('data', function(response) {
             console.log(response);
             setChat(c=>[...c, { name : response.array[0], msg : response.array[1] }]);
-            // setChat([...chat, { name : response.array[0], msg : response.array[1] }]);
         });
 
         return () => {
-            //dispatch(unloadPost());
         };
         
     },[]);
@@ -63,7 +50,6 @@ const MessageListContainer = () => {
               console.log(response)
             }
         });
-        // setChat([...chat, { name, msg }]);
     }
 
     return (

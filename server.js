@@ -19,6 +19,7 @@ let users = [];
  
 // Receive message from client joining
 function join(call, callback) {
+  console.log(call)
   users.push(call);
   notifyChat({ user: "Server", text: "new user joined ..." });
 }
@@ -28,8 +29,10 @@ function send(call, callback) {
   //console.log(call);
   console.log(call.request);
   // call.write("dddd");
-  // return callback(null,{text:call.request.text})
+  
   notifyChat(call.request);
+  console.log(callback)
+  return callback(null,{text:call.request.text})
 }
  
 // Send message to all connected clients
