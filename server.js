@@ -26,9 +26,7 @@ function join(call, callback) {
  
 // Receive message from client
 function send(call, callback) {
-  //console.log(call);
   console.log(call.request);
-  // call.write("dddd");
   
   notifyChat(call.request);
   console.log(callback)
@@ -47,6 +45,6 @@ server.addService(proto.example.Chat.service, { join: join, send: send });
  
 server.bind(SERVER_ADDRESS, grpc.ServerCredentials.createInsecure());
 
-console.log(1);
- 
+console.log("Start Server!");
+
 server.start();

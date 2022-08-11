@@ -5,16 +5,16 @@ const MessageListContainer = () => {
 
     const [name, setName] = useState("");
     const [msg, setMsg] = useState("");
-    const [chat, setChat] = useState([{ name: "ddd", msg: "ddddd" }]);
+    const [chat, setChat] = useState([]);
 
     const { ChatClient } = require('../protos/chat_grpc_web_pb');
     const { Message } = require('../protos/chat_pb.js');
 
-    var client= new ChatClient('http://localhost:9090', null, null);
+    const client= new ChatClient('http://localhost:9090', null, null);
 
     useEffect(() => {
         let streamRequest = new Message();
-        streamRequest.setUser("박건후");
+        streamRequest.setUser("user");
         
         var stream = client.join(
             streamRequest,
@@ -30,6 +30,7 @@ const MessageListContainer = () => {
         };
         
     },[]);
+    
     const onNameChange = e => {
         setName(e.target.value);
     }
@@ -54,21 +55,23 @@ const MessageListContainer = () => {
 
     return (
         <div>
-            <span>Nickname</span>
+            <MessageList chat={chat} />
+            
+            <span>Nickname : </span>
             <input
                 name="name"
                 onChange={onNameChange}
                 value={name}
             />
             <br />
-            <span>Message</span>
+            <span>Message : </span>
             <input
                 name="msg"
                 onChange={onMsgChange}
                 value={msg}
             />
             <button onClick={onMessageSubmit}>Send</button>
-            <MessageList chat={chat} />
+
         </div>
     );
 };
